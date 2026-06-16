@@ -4,7 +4,7 @@ https://deepfakeaudiodetection-deeplearning.streamlit.app/
 ```
 The project explores the use of audio signal processing techniques combined with deep learning-based transfer learning for deepfake audio detection.
 
-## Dataset
+# Dataset
 ```
 /kaggle/input/datasets/mohammedabdeldayem/the-fake-or-real-dataset
 ```
@@ -35,5 +35,7 @@ Because Wav2Vec2 is pretrained on large-scale speech corpora, it learns rich aud
 
 Training in two ways
 > Training on fake data set first so that it learns it and then on real data set keeping learning rate low to keep the weights of fake data set
+
 > Training in a balanced way with fixed duration to avoid biased learning
+
 
