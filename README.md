@@ -13,19 +13,27 @@ The project uses the Fake-or-Real (FoR) dataset containing recordings from:
 - Synthetic speech generated using modern TTS systems
 Contains four category of data: `Normal` `Original` `2-sec` `Rerec`
 
-## Method 1
+# Method 1
 > Fine Tunning ResNet34
-# Preprocessing audio
+## Preprocessing audio
 - audio preprocessing is done using `librosa` python library
 - Mel spectogram was generated which is used as image representation of audio signal.
 
-# Transfer learning using ResNet34
+## Transfer learning using ResNet34
 - Pretrained ResNet 34 is used and fine tunned, ResNet 34 is used because it solves the problem of vanishing gradiesnt which happens in CNN build from scratch
 - but the issue with this pipeline was the data set is not balanced audio duration wise, i.e. real training data is of `4 second mean` duration and fake is of `1.5 seconds` duration
 - i have applied preprocessing steps like tranculation, padding, weight bias for fake class, changed the loss function but the model is learning only real data set and ignoring fake data and hence predicting almost everything as real.
 
-## Method 2 
+# Method 2 
 > Fine tunning wav2vec2 pretrained model
 Wav2vec2 directly operates on raw audio waveforms
-# Preprocessing  audio
+## Preprocessing  audio
 - audio loaded using librosa
+- resampling to10kHz, fixed preprocessing
+Wav2Vec2 converts the waveform into contextual audio embeddings. These embeddings capture phonetic, acoustic, and temporal characteristics of speech.
+Because Wav2Vec2 is pretrained on large-scale speech corpora, it learns rich audio representations directly from waveforms, reducing the need for handcrafted feature engineering.
+
+Training in two ways
+> Training on fake data set first so that it learns it and then on real data set keeping learning rate low to keep the weights of fake data set
+> Training in a balanced way with fixed duration to avoid biased learning
+
